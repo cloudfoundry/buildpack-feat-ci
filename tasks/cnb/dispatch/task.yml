@@ -4,7 +4,7 @@ image_resource:
   type: docker-image
   source:
     repository: cfbuildpacks/feature-eng-ci
-    tag: minimal
+    tag: cf
 inputs:
   - name: buildpacks-feature-eng-ci
   - name: release
