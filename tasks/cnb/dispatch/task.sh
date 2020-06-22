@@ -1,12 +1,28 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-set -eu
+set -eux
 set -o pipefail
 
+function main() {
+  dispatch::send
+}
 
-payload='{"event_type": "oss-update", "client_payload": { "oss": { "version": "$1"}}}'
+function dispatch::send() {
+  local version
+  version=$(cat release/version)
 
-curl -H "Authorization: token ${GIT_TOKEN}" \
-     --request POST \
-     --data $payload \
-     https://api.github.com/repos/pivotal-cf/tanzu-npm/dispatches
+  curl "https://api.github.com/repos/pivotal-cf/tanzu-npm/dispatches" \
+    -H "Authorization: token ${GIT_TOKEN}" \
+    -X POST \
+    --fail \
+    --show-error \
+    --data '{
+      "event_type": "oss-update",
+      "client_payload": {
+        "oss": {
+          "version": "'"${version}"'"
+        }
+    }'
+}
+
+main "${@}"

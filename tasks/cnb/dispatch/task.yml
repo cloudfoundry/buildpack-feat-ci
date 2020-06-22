@@ -5,11 +5,13 @@ image_resource:
   source:
     repository: cfbuildpacks/feature-eng-ci
     tag: cf
+
 inputs:
   - name: buildpacks-feature-eng-ci
   - name: release
+
 params:
   GIT_TOKEN:
+
 run:
   path: buildpacks-feature-eng-ci/tasks/cnb/dispatch/task.sh
-  args: [release/version]
