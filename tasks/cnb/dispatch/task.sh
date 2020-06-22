@@ -11,7 +11,7 @@ function dispatch::send() {
   local version
   version=$(cat release/version)
 
-  curl "https://api.github.com/repos/pivotal-cf/tanzu-npm/dispatches" \
+  curl "https://api.github.com/repos/pivotal-cf/tanzu-${BUILDPACK}/dispatches" \
     -H "Authorization: token ${GIT_TOKEN}" \
     -X POST \
     --fail \
